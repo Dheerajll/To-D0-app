@@ -1,25 +1,23 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Todo List</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="{% static 'home.css'%}" />
 </head>
+
 <body>
 
   <div class="todo-app">
     <h1>📝 Todo List</h1>
 
     <!-- Add Task Form (Backend handles this) -->
-    <form class="input-row" method="POST" action="/add-task">
-      <input 
-        type="text" 
-        name="task"
-        placeholder="Add a new task..." 
-        required
-      />
+    <form class="input-row" method="POST" action="{%url 'addtask'%}">
+      {% csrf_token %}
+      <input type="text" name="task" placeholder="Add a new task..." required />
       <button type="submit">Add</button>
     </form>
 
@@ -33,10 +31,10 @@
     <ul class="todo-list">
       </li>
       {% if tasks %}
-      {% for task  in tasks %}
+      {% for task in tasks %}
       {% if task.is_done %}
-       <!-- Completed task example -->
-       <li class="completed">
+      <!-- Completed task example -->
+      <li class="completed">
         <span>{{task.task}}</span>
         <div class="actions">
           <form method="POST" action="/delete-task">
@@ -66,16 +64,17 @@
       {% endfor %}
 
     </ul>
-      {% endif %}
-      
+    {% endif %}
+
     {% if not tasks %}
     <!-- Show only when no tasks -->
     <div class="empty">No tasks yet ✨</div>
     {% endif %}
 
-    
+
 
   </div>
 
 </body>
+
 </html>
