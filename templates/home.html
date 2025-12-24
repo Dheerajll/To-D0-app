@@ -31,10 +31,25 @@
 
     <!-- Tasks rendered from backend -->
     <ul class="todo-list">
+      </li>
+      {% if tasks %}
+      {% for task  in tasks %}
+      {% if task.is_done %}
+       <!-- Completed task example -->
+       <li class="completed">
+        <span>{{task.task}}</span>
+        <div class="actions">
+          <form method="POST" action="/delete-task">
+            <input type="hidden" name="id" value="2" />
+            <button class="delete" type="submit">✕</button>
+          </form>
+        </div>
+      </li>
 
+      {% else %}
       <!-- Example task (backend loop starts here) -->
       <li>
-        <span>Finish homework</span>
+        <span>{{task.task}}</span>
         <div class="actions">
           <form method="POST" action="/complete-task">
             <input type="hidden" name="id" value="1" />
@@ -47,24 +62,19 @@
           </form>
         </div>
       </li>
-
-      <!-- Completed task example -->
-      <li class="completed">
-        <span>Clean desk</span>
-        <div class="actions">
-          <form method="POST" action="/delete-task">
-            <input type="hidden" name="id" value="2" />
-            <button class="delete" type="submit">✕</button>
-          </form>
-        </div>
-      </li>
-
-      <!-- Backend loop ends here -->
+      {% endif %}
+      {% endfor %}
 
     </ul>
-
+      {% endif %}
+      
+    {% if not tasks %}
     <!-- Show only when no tasks -->
     <div class="empty">No tasks yet ✨</div>
+    {% endif %}
+
+    
+
   </div>
 
 </body>
