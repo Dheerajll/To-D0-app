@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Todo List</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{% static 'home.css'%}" />
+</head>
+<body>
+
+  <div class="todo-app">
+    <h1>📝 Todo List</h1>
+
+    <!-- Add Task Form (Backend handles this) -->
+    <form class="input-row" method="POST" action="/add-task">
+      <input 
+        type="text" 
+        name="task"
+        placeholder="Add a new task..." 
+        required
+      />
+      <button type="submit">Add</button>
+    </form>
+
+    <div class="filters">
+      <button class="active">All</button>
+      <button>Active</button>
+      <button>Done</button>
+    </div>
+
+    <!-- Tasks rendered from backend -->
+    <ul class="todo-list">
+
+      <!-- Example task (backend loop starts here) -->
+      <li>
+        <span>Finish homework</span>
+        <div class="actions">
+          <form method="POST" action="/complete-task">
+            <input type="hidden" name="id" value="1" />
+            <button class="check" type="submit">✓</button>
+          </form>
+
+          <form method="POST" action="/delete-task">
+            <input type="hidden" name="id" value="1" />
+            <button class="delete" type="submit">✕</button>
+          </form>
+        </div>
+      </li>
+
+      <!-- Completed task example -->
+      <li class="completed">
+        <span>Clean desk</span>
+        <div class="actions">
+          <form method="POST" action="/delete-task">
+            <input type="hidden" name="id" value="2" />
+            <button class="delete" type="submit">✕</button>
+          </form>
+        </div>
+      </li>
+
+      <!-- Backend loop ends here -->
+
+    </ul>
+
+    <!-- Show only when no tasks -->
+    <div class="empty">No tasks yet ✨</div>
+  </div>
+
+</body>
+</html>
