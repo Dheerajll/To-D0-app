@@ -51,27 +51,40 @@
       </li>
 
       {% else %}
-      <li>
-        <!--Tasks to do-->
-        <span>{{task.task}}</span>
-        <div class="actions">
-          <form method="POST" action="{% url 'task-completed' task.pk%}">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="1" />
-            <button class="check" type="submit">✓</button>
-          </form>
+      
+          {% if task.id == edit_task.id %}
+                <div class="actions">
+                    <form method="POST" action="{%url 'update' task.id%}" class="edit-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="1">
 
-          <form method="POST" action="{% url 'delete-task' task.pk%}">
-            {% csrf_token %}
-            <input type="hidden" name="id" value="1" />
-            <button class="delete" type="submit">✕</button>
-          </form>
+                        <input type="text" name="task" value="{{task.task}}" class="edit-input" autofocus required>
 
-          <form method="GET" action="{%url 'edit-page' task.pk%}">
-            <input type="hidden" name="edit" value="1">
-            <button class="edit" title="Edit">✎</button>
-          </form>
-        </div>
+                        <div class="actions">
+                            <button class="check" title="Save">✓</button>
+
+                            <a href="{%url 'home'%}" class="cancel" title="Cancel">✕</a>
+                        </div>
+                    </form>
+            {% else %}
+            
+                <!--Tasks to do-->
+                <span>{{task.task}}</span>
+                <div class="actions">
+                  <form method="POST" action="{% url 'task-completed' task.pk%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="1" />
+                    <button class="check" type="submit">✓</button>
+                  </form>
+        
+                  <form method="POST" action="{% url 'delete-task' task.pk%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="1" />
+                    <button class="delete" type="submit">✕</button>
+                  </form>
+                  
+
+          {% endif %}
 
 
       </li>

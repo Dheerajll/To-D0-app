@@ -5,7 +5,6 @@ from todo.models import Task
 
 def home(request):
     tasks = Task.objects.all().order_by('-created_at')
-    print(tasks)
     context ={
         'tasks':tasks
     }
