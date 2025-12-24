@@ -51,17 +51,17 @@
       </li>
 
       {% else %}
-      
+
           {% if task.id == edit_task.id %}
                 <div class="actions">
-                    <form method="POST" action="{%url 'update' task.id%}" class="edit-form">
+                    <form method="POST" action="{%url 'edit-page' task.id%}" class="edit-form">
                         {% csrf_token %}
                         <input type="hidden" name="id" value="1">
 
                         <input type="text" name="task" value="{{task.task}}" class="edit-input" autofocus required>
 
                         <div class="actions">
-                            <button class="check" title="Save">✓</button>
+                            <button class="check" title="Save" type="submit">✓</button>
 
                             <a href="{%url 'home'%}" class="cancel" title="Cancel">✕</a>
                         </div>

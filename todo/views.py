@@ -33,11 +33,10 @@ def editpage(request,id):
         'tasks':tasks,
         'edit_task':edit_task
     }
-    return render(request,'editpage.html',context)
-
-def update(request,id):
-    task = request.POST['task']
-    updated_task = get_object_or_404(Task,pk =id)
-    updated_task.task = task
-    updated_task.save()
-    return redirect('home')
+    if request.method == "POST":
+        task = request.POST['task']
+        edit_task.task = task
+        edit_task.save()
+        return redirect('home')
+    else:
+        return render(request,'editpage.html',context)
